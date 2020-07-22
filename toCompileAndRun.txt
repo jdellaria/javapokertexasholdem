@@ -1,0 +1,8 @@
+to compile:
+mvn compile
+
+to Make jar file:
+mvn package
+
+to run jar file:
+java -cp ./target/javapokertexasholdem-0.1.0.jar com.cantero.games.poker.texasholdem.GameTexasHoldemRunner
