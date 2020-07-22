@@ -31,7 +31,19 @@ public class Deck implements IDeck, Serializable {
 		}
 	}
 
+	public Card place(int cardNumber) {
+		return cards.remove(cardNumber);
+	}
+	
 	public Card pop() {
 		return cards.remove(random.nextInt(cards.size()));
+	}
+	
+	public int size() {
+		return cards.size();
+	}
+
+	public Card place() {
+		return cards.remove(0);
 	}
 }

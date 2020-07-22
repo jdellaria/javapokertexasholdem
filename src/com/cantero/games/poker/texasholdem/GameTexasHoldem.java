@@ -31,13 +31,33 @@ public class GameTexasHoldem implements Serializable {
 	}
 
 	public void deal() {
+		int index = 0;
 		for (IPlayer player : players) {
 			player.getCards()[0] = deck.pop();
 			player.getCards()[1] = deck.pop();
+//			player.getCards()[0] = deck.place(index); //Used to get precise card instead of random 
+//			player.getCards()[1] = deck.place(index);
+			index = index + 11;
 		}
 		checkPlayersRanking();
 	}
 
+	public void showAllPlayerCards() {
+		for (IPlayer player : players) {
+			showPlayerCards( player );
+		}
+	}
+	
+	public void showPlayerCards(IPlayer player ) {
+		System.out.println(player.getName()  + " " + player.getCards()[0].getRank() + " " +  player.getCards()[0].getSuit());
+		System.out.println(player.getName() + " " + player.getCards()[1].getRank() + " " +  player.getCards()[1].getSuit());
+	}
+	
+	public void showAllTableCards() {
+		for (Card card : tableCards) {
+			System.out.println("Table Card " + card.getRank() + " " + card.getSuit());
+		}
+	}
 	/**
 	 * doble initial bet
 	 */
@@ -84,7 +104,7 @@ public class GameTexasHoldem implements Serializable {
 					winnerList.add(winner);
 				} else if (highHandPlayer == null) {
 					//Draw in checkHighSequence and checkHighCardWinner
-					winnerList.add(winner);
+					winnerList.add(player);// jon
 				}
 			} else if (winnerRank < playerRank) {
 				winner = player;

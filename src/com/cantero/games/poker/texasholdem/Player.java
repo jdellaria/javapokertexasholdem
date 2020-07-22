@@ -16,6 +16,22 @@ public class Player implements IPlayer, Serializable {
 
 	private Card highCard = null;
 
+	private String Name = this.toString();
+	
+	public Player(String name) {
+		this.Name = name;
+	}
+	
+	public Player() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public String getName()
+	{
+		return Name;
+	}
+
 	public Card getHighCard() {
 		return highCard;
 	}
@@ -41,6 +57,7 @@ public class Player implements IPlayer, Serializable {
 	}
 
 	public Card[] getCards() {
+//		System.out.println("line " + cards.toString());
 		return cards;
 	}
 
