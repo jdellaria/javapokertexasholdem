@@ -27,13 +27,21 @@ public class GameTexasHoldemRunner {
 //			getStatsSimple(simpleFileName, executions);
 //			System.out.println("getStatsSimple - OK - " + simpleFileName);
 			//getStatsFull
-//			String fullFileName = currDir + "/2PlayerGame" + executions + "-full.csv";
-//			run2PlayerGameFull(fullFileName, executions);
-//			System.out.println("run2PlayerGameFull - OK - " + fullFileName);
+			String fullFileName = currDir + "/2PlayerGame" + executions + "-full.csv";
+			run2PlayerGameFull(fullFileName, executions);
+			System.out.println("run2PlayerGameFull - OK - " + fullFileName);
 			
-			String fullFileName = currDir + "/3PlayerGame" + executions + "-full.csv";
+			fullFileName = currDir + "/3PlayerGame" + executions + "-full.csv";
 			run3PlayerGameFull(fullFileName, executions);
 			System.out.println("run3PlayerGameFull - OK - " + fullFileName);
+			
+			fullFileName = currDir + "/4PlayerGame" + executions + "-full.csv";
+			run4PlayerGameFull(fullFileName, executions);
+			System.out.println("run4PlayerGameFull - OK - " + fullFileName);
+			
+			fullFileName = currDir + "/5PlayerGame" + executions + "-full.csv";
+			run5PlayerGameFull(fullFileName, executions);
+			System.out.println("run5PlayerGameFull - OK - " + fullFileName);
 
 		}
 	}
@@ -276,6 +284,10 @@ public class GameTexasHoldemRunner {
 				+ "WINNER;"
 				+ "Player 1 Card1 Rank;Player 1 Card1 Suite;Player 1 Card2 Rank;Player 1 Card2 Suite;"
 				+ "Player 2 Card1 Rank;Player 2 Card1 Suite;Player 2 Card2 Rank;Player 2 Card2 Suite;"
+				+ "PAIR ACES;"
+				+ "Take ACES;"
+				+ "PAIR KINGS;"
+				+ "Take KINGS;"
 				+ "Table Card1 Rank;Table Card1 Suite;Table Card2 Rank;Table Card2 Suite;Table Card3 Rank;Table Card3 Suite;"
 				+ "Table Card4 Rank;Table Card4 Suite;Table Card5 Rank;Table Card5 Suite\n");
 
@@ -324,6 +336,61 @@ public class GameTexasHoldemRunner {
 //			System.out.println(player.getName()  + " " + player1.getCards()[0].getRank() + " " +  player.getCards()[0].getSuit());
 //			System.out.println(player.getName() + " " + player.getCards()[1].getRank() + " " +  player.getCards()[1].getSuit());
 
+			
+			if (player1.getCards()[0].getRank().toString().equals("ACE") && player1.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player1")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			
+			else if (player2.getCards()[0].getRank().toString().equals("ACE") && player2.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player2")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else
+			{
+				retLine += ";;";
+			}
+
+			
+			if (player1.getCards()[0].getRank().toString().equals("KING") && player1.getCards()[1].getRank().toString().equals("KING"))
+			{
+				retLine += "KINGS;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player1")) )
+				{
+						retLine += "KINGS Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			
+			else if (player2.getCards()[0].getRank().toString().equals("KING") && player2.getCards()[1].getRank().toString().equals("KING"))
+			{
+				retLine += "KINGS;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player2")) )
+				{
+						retLine += "KINGS Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else
+			{
+				retLine += ";;";
+			}
+			
+			
 			List<Card> tableCards = game.getTableCards();
 			int x = 0;
 			for (Card card : tableCards) {
@@ -331,7 +398,7 @@ public class GameTexasHoldemRunner {
 //				System.out.println("Table Card " + card.getRank() + " " + card.getSuit());
 				x++;
 			}
-			System.out.println(x + " Table Cards ");
+//			System.out.println(x + " Table Cards ");
 			
 			Long count = statsSimple.get(retLine);
 			if (count != null) {
@@ -367,6 +434,7 @@ public class GameTexasHoldemRunner {
 						+ "Player 2 Card1 Rank;Player 2 Card1 Suite;Player 2 Card2 Rank;Player 2 Card2 Suite;"
 						+ "Player 3 Card1 Rank;Player 3 Card1 Suite;Player 3 Card2 Rank;Player 3 Card2 Suite;"
 						+ "PAIRS;"
+						+ "Take ACES;"
 						+ "Table Card1 Rank;Table Card1 Suite;Table Card2 Rank;Table Card2 Suite;Table Card3 Rank;Table Card3 Suite;"
 						+ "Table Card4 Rank;Table Card4 Suite;Table Card5 Rank;Table Card5 Suite\n");
 		for (int i = 0; i < executions; i++) {
@@ -450,19 +518,37 @@ public class GameTexasHoldemRunner {
 			if (player1.getCards()[0].getRank().toString().equals("ACE") && player1.getCards()[1].getRank().toString().equals("ACE"))
 			{
 				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player1")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
 			}
 			
 			else if (player2.getCards()[0].getRank().toString().equals("ACE") && player2.getCards()[1].getRank().toString().equals("ACE"))
 			{
 				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player2")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
 			}
 			else if (player3.getCards()[0].getRank().toString().equals("ACE") && player3.getCards()[1].getRank().toString().equals("ACE"))
 			{
 				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player3")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
 			}
 			else
 			{
-				retLine += ";";
+				retLine += ";;";
 			}
 			
 //			System.out.println(player.getName()  + " " + player1.getCards()[0].getRank() + " " +  player.getCards()[0].getSuit());
@@ -495,11 +581,395 @@ public class GameTexasHoldemRunner {
 		bwFull.close();
 	}
 
-	private static void addHandLabel(String path)
-	{
-		
+
+	private static void run4PlayerGameFull(String path, int executions)
+			throws IOException {
+		Map<String, Long> statsSimple = new HashMap<String, Long>();
+		BufferedWriter bwFull = new BufferedWriter(new FileWriter(path));
+		//Header
+		bwFull
+				.write("Player1 DEAL;Player2 DEAL;Player3 DEAL;Player4 DEAL;"
+						+ "Player1 CALL FLOP;Player2 CALL FLOP;Player3 CALL FLOP;Player4 CALL FLOP;"
+						+ "Player1 BET TURN;Player2 BET TURN;Player3 BET TURN;Player4 BET TURN;"
+						+ "Player1 BET RIVER;Player2 BET RIVER;Player3 BET RIVER;Player4 BET RIVER;"
+						+ "WINNER;"
+						+ "Player 1 Card1 Rank;Player 1 Card1 Suite;Player 1 Card2 Rank;Player 1 Card2 Suite;"
+						+ "Player 2 Card1 Rank;Player 2 Card1 Suite;Player 2 Card2 Rank;Player 2 Card2 Suite;"
+						+ "Player 3 Card1 Rank;Player 3 Card1 Suite;Player 3 Card2 Rank;Player 3 Card2 Suite;"
+						+ "Player 4 Card1 Rank;Player 4 Card1 Suite;Player 4 Card2 Rank;Player 4 Card2 Suite;"
+						+ "PAIRS;"
+						+ "Take ACES;"
+						+ "Table Card1 Rank;Table Card1 Suite;Table Card2 Rank;Table Card2 Suite;Table Card3 Rank;Table Card3 Suite;"
+						+ "Table Card4 Rank;Table Card4 Suite;Table Card5 Rank;Table Card5 Suite\n");
+		for (int i = 0; i < executions; i++) {
+			GameTexasHoldem game = new GameTexasHoldem();
+			IPlayer player1 = new Player("player1");
+			IPlayer player2 = new Player("player2");
+			IPlayer player3 = new Player("player3");
+			IPlayer player4 = new Player("player4");
+			game.newGame(new Deck(), player1, player2, player3, player4);
+			
+			game.deal();
+			String retLine = new String(player1.getRankingEnum().toString()
+					+ ";");
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			
+			game.callFlop();
+			retLine += player1.getRankingEnum().toString() + ";";
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			
+			game.betTurn();
+			retLine += player1.getRankingEnum().toString() + ";";
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			
+			game.betRiver();
+			retLine += player1.getRankingEnum().toString() + ";";
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			
+			List<IPlayer> winnerList = game.getWinner();
+			if (winnerList.size() == 1) {
+				retLine += (game.getWinner().get(0).getName()) + ";";
+			} else {
+				retLine += "Draw Game:";
+				
+//				IPlayer myGuy;
+				for (IPlayer player : winnerList) {
+//					myGuy = player;
+					retLine += player.getName() + " ";
+//					System.out.println(myGuy.getName());
+				}
+				retLine += ";";
+			}
+			
+//			game.showAllPlayerCards();
+			retLine += player1.getCards()[0].getRank() + ";";
+			retLine += player1.getCards()[0].getSuit() + ";";
+			retLine += player1.getCards()[1].getRank() + ";";
+			retLine += player1.getCards()[1].getSuit() + ";";
+			
+			retLine += player2.getCards()[0].getRank() + ";";
+			retLine += player2.getCards()[0].getSuit() + ";";
+			retLine += player2.getCards()[1].getRank() + ";";
+			retLine += player2.getCards()[1].getSuit() + ";";
+			
+			retLine += player3.getCards()[0].getRank() + ";";
+			retLine += player3.getCards()[0].getSuit() + ";";
+			retLine += player3.getCards()[1].getRank() + ";";
+			retLine += player3.getCards()[1].getSuit() + ";";
+			
+			retLine += player4.getCards()[0].getRank() + ";";
+			retLine += player4.getCards()[0].getSuit() + ";";
+			retLine += player4.getCards()[1].getRank() + ";";
+			retLine += player4.getCards()[1].getSuit() + ";";
+/*
+			if (player1.getCards()[0].getRank() == player1.getCards()[1].getRank())
+			{
+				retLine += "PAIR;";
+			}
+			
+			else if (player2.getCards()[0].getRank() == player2.getCards()[1].getRank())
+			{
+				retLine += "PAIR;";
+			}
+			else if (player3.getCards()[0].getRank() == player3.getCards()[1].getRank())
+			{
+				retLine += "PAIR;";
+			}
+			else
+			{
+				retLine += ";";
+			}*/
+			
+			if (player1.getCards()[0].getRank().toString().equals("ACE") && player1.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player1")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			
+			else if (player2.getCards()[0].getRank().toString().equals("ACE") && player2.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player2")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else if (player3.getCards()[0].getRank().toString().equals("ACE") && player3.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player3")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else if (player4.getCards()[0].getRank().toString().equals("ACE") && player4.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player4")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else
+			{
+				retLine += ";;";
+			}
+			
+//			System.out.println(player.getName()  + " " + player1.getCards()[0].getRank() + " " +  player.getCards()[0].getSuit());
+//			System.out.println(player.getName() + " " + player.getCards()[1].getRank() + " " +  player.getCards()[1].getSuit());
+
+			List<Card> tableCards = game.getTableCards();
+//			int x = 0;
+			for (Card card : tableCards) {
+				retLine +=  card.getRank() + ";" + card.getSuit() + ";";
+//				System.out.println("Table Card " + card.getRank() + " " + card.getSuit());
+//				x++;
+			}
+//			System.out.println(x + " Table Cards ");
+			
+			Long count = statsSimple.get(retLine);
+			if (count != null) {
+				statsSimple.put(retLine, count + 1);
+			} else {
+				statsSimple.put(retLine, 1L);
+			}
+		}
+		//COUNT is how many times the same game occurs, PERCENT is the percentual of the COUNT compared with all executions
+		Iterator<String> it = statsSimple.keySet().iterator();
+		while (it.hasNext()) {
+			String stat = it.next();
+			Long count = statsSimple.get(stat);
+			bwFull.write(stat + ";" + count + ";"
+					+ (double) ((count * 100) / (double) executions) + "%\n");
+		}
+		bwFull.close();
 	}
 
+
+	private static void run5PlayerGameFull(String path, int executions)
+			throws IOException {
+		Map<String, Long> statsSimple = new HashMap<String, Long>();
+		BufferedWriter bwFull = new BufferedWriter(new FileWriter(path));
+		//Header
+		bwFull
+				.write("Player1 DEAL;Player2 DEAL;Player3 DEAL;Player4 DEAL;Player5 DEAL;"
+						+ "Player1 CALL FLOP;Player2 CALL FLOP;Player3 CALL FLOP;Player4 CALL FLOP;Player5 CALL FLOP;"
+						+ "Player1 BET TURN;Player2 BET TURN;Player3 BET TURN;Player4 BET TURN;Player5 BET TURN;"
+						+ "Player1 BET RIVER;Player2 BET RIVER;Player3 BET RIVER;Player4 BET RIVER;Player4 BET RIVER;"
+						+ "WINNER;"
+						+ "Player 1 Card1 Rank;Player 1 Card1 Suite;Player 1 Card2 Rank;Player 1 Card2 Suite;"
+						+ "Player 2 Card1 Rank;Player 2 Card1 Suite;Player 2 Card2 Rank;Player 2 Card2 Suite;"
+						+ "Player 3 Card1 Rank;Player 3 Card1 Suite;Player 3 Card2 Rank;Player 3 Card2 Suite;"
+						+ "Player 4 Card1 Rank;Player 4 Card1 Suite;Player 4 Card2 Rank;Player 4 Card2 Suite;"
+						+ "Player 5 Card1 Rank;Player 5 Card1 Suite;Player 5 Card2 Rank;Player 5 Card2 Suite;"
+						+ "PAIRS;"
+						+ "Take ACES;"
+						+ "Table Card1 Rank;Table Card1 Suite;Table Card2 Rank;Table Card2 Suite;Table Card3 Rank;Table Card3 Suite;"
+						+ "Table Card4 Rank;Table Card4 Suite;Table Card5 Rank;Table Card5 Suite\n");
+		for (int i = 0; i < executions; i++) {
+			GameTexasHoldem game = new GameTexasHoldem();
+			IPlayer player1 = new Player("player1");
+			IPlayer player2 = new Player("player2");
+			IPlayer player3 = new Player("player3");
+			IPlayer player4 = new Player("player4");
+			IPlayer player5 = new Player("player5");
+			game.newGame(new Deck(), player1, player2, player3, player4, player5);
+			
+			game.deal();
+			String retLine = new String(player1.getRankingEnum().toString()
+					+ ";");
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			retLine += player5.getRankingEnum().toString() + ";";
+			
+			game.callFlop();
+			retLine += player1.getRankingEnum().toString() + ";";
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			retLine += player5.getRankingEnum().toString() + ";";
+			
+			game.betTurn();
+			retLine += player1.getRankingEnum().toString() + ";";
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			retLine += player5.getRankingEnum().toString() + ";";
+			
+			game.betRiver();
+			retLine += player1.getRankingEnum().toString() + ";";
+			retLine += player2.getRankingEnum().toString() + ";";
+			retLine += player3.getRankingEnum().toString() + ";";
+			retLine += player4.getRankingEnum().toString() + ";";
+			retLine += player5.getRankingEnum().toString() + ";";
+			
+			List<IPlayer> winnerList = game.getWinner();
+			if (winnerList.size() == 1) {
+				retLine += (game.getWinner().get(0).getName()) + ";";
+			} else {
+				retLine += "Draw Game:";
+				
+//				IPlayer myGuy;
+				for (IPlayer player : winnerList) {
+//					myGuy = player;
+					retLine += player.getName() + " ";
+//					System.out.println(myGuy.getName());
+				}
+				retLine += ";";
+			}
+			
+//			game.showAllPlayerCards();
+			retLine += player1.getCards()[0].getRank() + ";";
+			retLine += player1.getCards()[0].getSuit() + ";";
+			retLine += player1.getCards()[1].getRank() + ";";
+			retLine += player1.getCards()[1].getSuit() + ";";
+			
+			retLine += player2.getCards()[0].getRank() + ";";
+			retLine += player2.getCards()[0].getSuit() + ";";
+			retLine += player2.getCards()[1].getRank() + ";";
+			retLine += player2.getCards()[1].getSuit() + ";";
+			
+			retLine += player3.getCards()[0].getRank() + ";";
+			retLine += player3.getCards()[0].getSuit() + ";";
+			retLine += player3.getCards()[1].getRank() + ";";
+			retLine += player3.getCards()[1].getSuit() + ";";
+			
+			retLine += player4.getCards()[0].getRank() + ";";
+			retLine += player4.getCards()[0].getSuit() + ";";
+			retLine += player4.getCards()[1].getRank() + ";";
+			retLine += player4.getCards()[1].getSuit() + ";";
+			
+			retLine += player5.getCards()[0].getRank() + ";";
+			retLine += player5.getCards()[0].getSuit() + ";";
+			retLine += player5.getCards()[1].getRank() + ";";
+			retLine += player5.getCards()[1].getSuit() + ";";
+
+/*
+			if (player1.getCards()[0].getRank() == player1.getCards()[1].getRank())
+			{
+				retLine += "PAIR;";
+			}
+			
+			else if (player2.getCards()[0].getRank() == player2.getCards()[1].getRank())
+			{
+				retLine += "PAIR;";
+			}
+			else if (player3.getCards()[0].getRank() == player3.getCards()[1].getRank())
+			{
+				retLine += "PAIR;";
+			}
+			else
+			{
+				retLine += ";";
+			}*/
+			
+			if (player1.getCards()[0].getRank().toString().equals("ACE") && player1.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player1")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			
+			else if (player2.getCards()[0].getRank().toString().equals("ACE") && player2.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player2")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else if (player3.getCards()[0].getRank().toString().equals("ACE") && player3.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player3")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else if (player4.getCards()[0].getRank().toString().equals("ACE") && player4.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player4")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else if (player5.getCards()[0].getRank().toString().equals("ACE") && player5.getCards()[1].getRank().toString().equals("ACE"))
+			{
+				retLine += "ACES;";
+				if ((winnerList.size() == 1) && (game.getWinner().get(0).getName().equals("player5")) )
+				{
+						retLine += "ACES Winner;";
+				} else {
+					retLine += ";";
+				}
+			}
+			else
+			{
+				retLine += ";;";
+			}
+			
+//			System.out.println(player.getName()  + " " + player1.getCards()[0].getRank() + " " +  player.getCards()[0].getSuit());
+//			System.out.println(player.getName() + " " + player.getCards()[1].getRank() + " " +  player.getCards()[1].getSuit());
+
+			List<Card> tableCards = game.getTableCards();
+//			int x = 0;
+			for (Card card : tableCards) {
+				retLine +=  card.getRank() + ";" + card.getSuit() + ";";
+//				System.out.println("Table Card " + card.getRank() + " " + card.getSuit());
+//				x++;
+			}
+//			System.out.println(x + " Table Cards ");
+			
+			Long count = statsSimple.get(retLine);
+			if (count != null) {
+				statsSimple.put(retLine, count + 1);
+			} else {
+				statsSimple.put(retLine, 1L);
+			}
+		}
+		//COUNT is how many times the same game occurs, PERCENT is the percentual of the COUNT compared with all executions
+		Iterator<String> it = statsSimple.keySet().iterator();
+		while (it.hasNext()) {
+			String stat = it.next();
+			Long count = statsSimple.get(stat);
+			bwFull.write(stat + ";" + count + ";"
+					+ (double) ((count * 100) / (double) executions) + "%\n");
+		}
+		bwFull.close();
+	}
+
+	
 	private static void getStatsSimple(String path, int executions)
 			throws IOException {
 		Map<RankingEnum, Long> statsSimple = new HashMap<RankingEnum, Long>();
